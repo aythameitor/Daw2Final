@@ -1,0 +1,156 @@
+:root{
+    --primary : #342fc9;
+    --primary_dark : #2f2f46;
+    --primary_bright : #b9b6fc;
+    --secondary : #5270fc;
+}
+
+.contain{
+    min-height: calc(70vh - 12px);
+    width: 100%;
+}
+
+.header{
+    background-color: var(--primary);
+}
+
+.navbar{
+    margin: 0 auto;
+    width: 90%;
+}
+
+.navbar-logo{
+    width: 200px;
+    height: 110px;
+}
+
+.menu-list{
+    display: flex;
+    column-gap: calc(30px - 1%);
+    min-height: 120px;
+    align-items: center;
+
+}
+.nav-item>a{
+    color: white!important;
+    text-decoration: none;
+    min-height: 70px;
+    align-items: center;
+    display: flex;
+    padding: 0px 5px 0px 5px;
+}
+.nav-item>a:hover{
+    background-color: var(--primary_dark);
+    border-radius: 30px;
+    transition: 0.5s ;
+}
+html, body {
+    min-height: 100%;
+    margin: 0;
+    font-family: 'Open sans', 'sans serif'!important;
+}
+.footer-container{
+    background-color: var(--primary_dark);
+    color:white;
+    position: relative;
+    bottom:0;
+    padding: 20px;
+    width:100%;
+    margin-top:20px;
+}
+.footer-container>div{
+    display: flex;
+    justify-content: center;
+}
+.footer-svg{
+    height: 40px;
+    top: 0;
+    width: 100%;
+    position: absolute;
+}
+.banner{
+    position: relative;
+    height: 550px;
+    width: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+.banner-svg{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    z-index: -1;
+}
+.bannerContainer{
+    position:relative;
+}
+.table-responsive{
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+a{
+    text-decoration: none!important;
+    color:white!important;
+}
+th{
+    text-align: center!important;
+}
+td{
+    text-align: center!important;
+}
+.navbar-toggler-icon{
+    filter:invert(1);
+}
+li.nav-item{
+    display: flex!important;
+    margin: auto!important;
+}
+
+.margin-50{
+    min-height: 50px;
+}
+.parallaxBackgroundImg{
+    background-image: url("/images/parallax/parallax.jpg");
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position-x: center;
+
+}
+.parallaxSection{
+    padding: 60px 0;
+    position: relative;
+    height:400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.textParallax{
+    z-index: 30;
+    position: relative;
+    color: white;
+    font-family: "roboto" , "sans-serif";
+    text-align: center;
+    font-size: 4rem;
+}
+.info-pic{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    z-index: -2;
+    border-radius: 20px;
+    margin: auto;
+}
+@media(max-width: 800px){
+.text-inf>p{
+    padding-top:20px!important;
+}
+}
