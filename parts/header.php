@@ -26,7 +26,7 @@ $connection = connection();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love gaming</title>
+    <title>Love gaming | Cheap gaming in Gran Canaria</title>
     <link rel="stylesheet" href="/styles/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -77,7 +77,7 @@ $connection = connection();
                                             <a href="/products/productWishlist.php">See product wishlist</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/products/producthistorylist.php">See product history</a>
+                                            <a href="/products/productHistoryList.php">See product history</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/reviews/addReview.php">Add review</a>
@@ -128,7 +128,7 @@ $connection = connection();
                                             <a href="/products/productList.php">See products</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="/products/producthistorylist.php">See product history</a>
+                                            <a href="/products/productHistoryList.php">See product history</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/reviews/reviewList.php">See review list</a>
@@ -174,7 +174,7 @@ $connection = connection();
                                         <li class="nav-item">
                                             <a href="/products/productList.php" class="nav-link">See products</a>
                                         <li class="nav-item">
-                                            <a href="/products/producthistorylist.php" class="nav-link">See product history</a>
+                                            <a href="/products/productHistoryList.php" class="nav-link">See product history</a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="/reviews/reviewList.php">See review list</a>

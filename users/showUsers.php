@@ -49,7 +49,7 @@ try {
                     $borrar->bindParam(":userId", $idDelete);
                     $borrar->execute();
                     unlink($filePath);
-                    $error = "El usuario se ha borrado exitosamente.";
+                    $error = "User deleted successfully";
                 }
             } else {
                 if ($userRoleId < 3) {
@@ -57,11 +57,11 @@ try {
                     $borrar = $connection->prepare($delete);
                     $borrar->bindParam(":userId", $idDelete);
                     $borrar->execute();
-                    $error = "El usuario se ha borrado exitosamente.";
+                    $error = "User deleted successfully";
                 }
             }
         } else {
-            $error = "No se ha encontrado al usuario";
+            $error = "User not found";
         }
 
     }
