@@ -47,7 +47,7 @@
 html, body {
     min-height: 100%;
     margin: 0;
-    font-family: 'Courier New', 'sans serif'!important;
+    font-family: 'Garamond', 'sans serif'!important;
 }
 .footer-container{
     background-color: var(--primary_dark);
