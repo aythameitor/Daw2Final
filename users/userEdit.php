@@ -79,28 +79,37 @@ try {
                                     if (strpos($tipo_archivo, 'image') !== false) {
                                         // Mover la imagen cargada a una ubicación permanente en el servidor
                                         if ($_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
-                                            $ruta_destino = '../images/profilePics/' . $username . "." . $extension;
-                                            $ruta_BBDD = '/images/profilePics/' . $username . "." . $extension;
+
+                                            $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
+                                            $query = $connection->prepare($sql);
+                                            $query->bindParam(":email", $formEmail, PDO::PARAM_STR);
+                                            $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
+                                            $query->bindParam(":username", $username, PDO::PARAM_STR);
+                                            $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
+                                            $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
+                                            $query->bindParam(":userId", $userId);
+                                            $query->execute();
+                                            $_SESSION["email"] = $formEmail;
+                                            if ($filePath != $_SERVER['DOCUMENT_ROOT'] . "/images/profilePics/default.jpg") {
+                                                unlink($filePath);
+                                            }
+
+                                            $newUserId = select("userId", $formEmail, $connection)->fetchColumn();
+                                            $ruta_destino = '../images/profilePics/' . $newUserId . "." . $extension;
+                                            $ruta_BBDD = '/images/profilePics/' . $newUserId . "." . $extension;
 
                                             if (move_uploaded_file($tempRoute, $ruta_destino)) {
-                                                $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate, profilePic = :profilePic WHERE userId = :userId";
-                                                $query = $connection->prepare($sql);
-                                                $query->bindParam(":email", $formEmail, PDO::PARAM_STR);
-                                                $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
-                                                $query->bindParam(":username", $username, PDO::PARAM_STR);
-                                                $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
-                                                $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
-                                                $query->bindParam(":profilePic", $ruta_BBDD, PDO::PARAM_STR);
-                                                $query->bindParam(":userId", $userId);
-                                                $query->execute();
-                                                $_SESSION["email"] = $formEmail;
-                                                if ($filePath != $_SERVER['DOCUMENT_ROOT'] . "/images/profilePics/default.jpg") {
-                                                    unlink($filePath);
-                                                }
-                                                $success = "User uptaded successfully";
+                                                $sqlRouteUpdatePic = "update user set profilePic = :profilePic where userId = :userId";
+                                                $queryRouteUpdatePic = $connection->prepare($sqlRouteUpdatePic);
+                                                $queryRouteUpdatePic->bindParam(":profilePic", $ruta_BBDD, PDO::PARAM_STR);
+                                                $queryRouteUpdatePic->bindParam(":userId", $newUserId);
+                                                $queryRouteUpdatePic->execute();
+                                                $success = "User updated successfully";
+
                                             } else {
-                                                $error = "Ha ocurrido un error al mover la foto";
+                                                $error = "There was an error moving the picture";
                                             }
+
                                         }
                                     } else {
                                         $error = 'El archivo cargado no es válido';
@@ -120,7 +129,7 @@ try {
                                 $query->bindParam(":userId", $userId);
                                 $query->execute();
                                 $_SESSION["email"] = $formEmail;
-                                $success = "User updated successfully 2";
+                                $success = "User updated successfully";
                             }
 
                         } else {
@@ -266,7 +275,7 @@ if (isset($error)) {
     fileInput.addEventListener("change", () => {
         if (fileInput.files[0].size > 2097152) {
             alert("El tamaño máximo permitido para la imagen es de 2MB.");
-            fileInput.value = ""; 
+            fileInput.value = "";
         }
     });
 </script>

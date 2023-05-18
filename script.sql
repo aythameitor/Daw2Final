@@ -48,7 +48,7 @@ CREATE TABLE if not exists productHistory (
     productHistoryId INT AUTO_INCREMENT PRIMARY KEY,
     userId INT,
     productId INT,
-    saleDate DATE default CURDATE(),
+    saleDate DATE,
     FOREIGN KEY (userId) REFERENCES user(userId) ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES product(productId) ON DELETE CASCADE
 );
