@@ -1,11 +1,3 @@
-<html>
-
-<head>
-    <title>Prueba de PHP</title>
-</head>
-
-<body>
-
     <?php
     session_name("loveGamingSession2023");
     session_start();
