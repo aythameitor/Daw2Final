@@ -58,7 +58,7 @@
                                 <strong>Release date:</strong>
                                     <?php echo $product[$i]["releaseDate"]; ?> <br>
                                     <strong>Price:</strong>
-                                    <?php echo $product[$i]["price"] . "%"; ?> <br>
+                                    <?php echo $product[$i]["price"] . "€"; ?> <br>
                                     <strong>Description:</strong>
                                     <?php echo $product[$i]["description"]; ?> <br>
                                     <strong>Stock:</strong>
