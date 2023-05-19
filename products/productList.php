@@ -156,19 +156,19 @@ if (isset($error)) {
                             echo "Product id: " . $row["productId"];
                         }
                         ?>
-                        <?php echo "<br>" . "Name: " . $row["name"]; ?>
+                        <?php echo "<br>" . "<strong>Name:</strong> " . $row["name"]; ?>
 
                     </h5>
                     <p class="card-text">
-                        Release date:
+                        <strong>Release date:</strong>
                         <?php echo $row["releaseDate"]; ?> <br>
-                        Price:
+                        <strong>Price:</strong>
                         <?php echo $row["price"] . "€"; ?> <br>
-                        Description:
+                        <strong>Description:</strong>
                         <?php echo $row["description"]; ?> <br>
-                        Stock:
+                        <strong>Stock:</strong>
                         <?php echo $row["stock"]; ?> <br>
-                        Product type:
+                        <strong>Product type:</strong>
                         <?php
                         $rol = 'select productType from productType where productTypeId=' . $row["productTypeId"];
                         $consultaRol = $connection->prepare($rol);
