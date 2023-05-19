@@ -34,7 +34,6 @@ try {
         }
     }
     if (isset($_POST["productNameSearch"])) {
-        echo "<script> alert 'a';</script>";
         $productNameSearch = strip_tags(trim($_POST["productNameSearch"]));
 
         $reviewQuery = "SELECT pr.productReviewId, pr.productReview, u.username, u.email, u.profilePic, p.name, p.picture

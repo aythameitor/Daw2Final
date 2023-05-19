@@ -278,7 +278,7 @@ if (isset($error)) {
 
     fileInput.addEventListener("change", () => {
         if (fileInput.files[0].size > 2097152) {
-            alert("El tamaño máximo permitido para la imagen es de 2MB.");
+            alert("File max size is 2MB.");
             fileInput.value = "";
         }
     });
