@@ -76,7 +76,7 @@ if (isset($error)) {
             if ($productDetailsArray && $productDetails->rowCount() > 0) {
                 ?>
                 <div class="table-responsive" style="margin: auto; display: flex; justify-content: center;">
-                    <table>
+                    <table class="table">
                         <thead>
                             <tr>
                                 <?php

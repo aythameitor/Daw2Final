@@ -147,7 +147,7 @@ if (isset($error)) {
         <span  style="display:flex;margin:auto;justify-content:center">
             <strong>Total price:</strong>
             <?php
-            echo $totalPrice;
+            echo $totalPrice . "€";
             ?>
 
         </span>
