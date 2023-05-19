@@ -1,6 +1,6 @@
 <?php
 /**
- * Se encarga de mostrar todos los user, comprueba tu rol y te permite, en caso de ser superadministrador, borrar user
+ * Users edit themselves
  * @author Aythami Miguel Cabrera Mayor
  * @category File
  * @throws PDOException
@@ -17,11 +17,8 @@ if (!isset($_SESSION["email"])) {
 }
 try {
     $connection = connection();
-    //Se comprueba el id de la sesión y si se recibe un get de delete, en ese caso
-    //se comprueba el id del usuario a delete para evitar delete superadmins
-    //en caso de no ser superadmin se elimina
+    //Checks if email is already taken
     $email = strip_tags(trim($_SESSION["email"]));
-    //Se seleccionan los user para cargar la lista con el usuario ya borrado
     $AllUsersQuery = 'select * from user where email = "' . $email . '"';
     $sentencia = $connection->prepare($AllUsersQuery);
     $sentencia->execute();
@@ -65,7 +62,7 @@ try {
         $filePath = $_SERVER['DOCUMENT_ROOT'] . $queryPic->fetchColumn();
 
         if ($account == 1 && password_verify($password, $accountQueryConstrasena->fetchColumn())) {
-            //valida que el campo sea un email, y en caso de serlo comprueba si hay post de admin y si tu userId es de superadmin
+            //validates email
             if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
                 $error = "Por favor, introduce un email válido";
             } else {
@@ -77,7 +74,6 @@ try {
                             if (!empty($_FILES['profilePic']['name'])) {
                                 if ($_FILES['profilePic']['size'] <= 2097152) {
                                     if (strpos($tipo_archivo, 'image') !== false) {
-                                        // Mover la imagen cargada a una ubicación permanente en el servidor
                                         if ($_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
 
                                             $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
@@ -112,10 +108,10 @@ try {
 
                                         }
                                     } else {
-                                        $error = 'El archivo cargado no es válido';
+                                        $error = 'File is not valid';
                                     }
                                 } else {
-                                    $error = 'El archivo cargado supera los 2MB';
+                                    $error = 'File is bigger than 2MB';
                                 }
                             } else {
                                 //no profile pic

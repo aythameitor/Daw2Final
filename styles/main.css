@@ -96,9 +96,11 @@ a{
 }
 th{
     text-align: center!important;
+    padding:10px;
 }
 td{
     text-align: center!important;
+    padding:10px;
 }
 .navbar-toggler-icon{
     filter:invert(1);

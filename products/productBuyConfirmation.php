@@ -26,7 +26,7 @@ if (!isset($_SESSION["email"]) || !isset($_SESSION["roleId"])) {
 try {
     $connection = connection();
     if (sizeof($_SESSION["cart"]) > 0) {
-        $cart = $_SESSION["cart"];        
+        $cart = $_SESSION["cart"];
         $product = [];
         $totalPrice = 0;
 
@@ -77,18 +77,28 @@ if (isset($error)) {
 
 
 <div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div style="display:flex; align-items:center; padding:10px; gap:10px">
+                    <h2>Write your email</h2>
+                </div>
 
-    <span>
-        <strong>Total price:</strong>
-        <?php
-        echo $totalPrice . "€";
-        ?>
+                <form action="productList.php" method="post">
+                    <div class="form-group">
+                        <label>email:</label><input type="text" name="email" class="form-control" />
+                    </div>
+                    <input type="submit" value="Buy" name="buy" /><br />
+                    <p>
+                        <strong>Total price:</strong>
+                        <?php
+                        echo $totalPrice . "€";
+                        ?>
+                    </p>
 
-    </span>
-    <form action="productList.php" method="post" enctype="multipart/form-data">
-        <input type="text" name="email" >
-        <input type="submit" value="Buy" name="buy" /><br />
-    </form>
+            </div>
+        </div>
+    </div>
 </div>
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/parts/footer.php';
