@@ -39,7 +39,7 @@ function validatePhone($telephone) {
     $telephone = str_replace(' ', '', $telephone);
     $telephone = str_replace('-', '', $telephone);
 
-    if (strlen($telephone) !== 10) {
+    if (strlen($telephone) !== 9) {
         return false;
     }
 
