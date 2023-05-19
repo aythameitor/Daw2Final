@@ -156,3 +156,12 @@ li.nav-item{
     padding-top:20px!important;
 }
 }
+.successMsg{
+    font-family:'Roboto', 'sans-serif'; 
+    width:50%;
+    padding: 5px ; 
+    background-color: #19c406; 
+    border-radius:30px; 
+    color:white; 
+    text-align:center
+}

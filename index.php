@@ -48,22 +48,22 @@
                                 <h5 class="card-title">
                                     <?php
                                     if (isset($_SESSION["roleId"]) && $_SESSION["roleId"] > 1) {
-                                        echo "ProductId: " . $product[$i]["productId"];
+                                        echo "<strong>ProductId:</strong> " . $product[$i]["productId"];
                                     }
                                     ?>
-                                    <?php echo "<br>" . "Name: " . $product[$i]["name"]; ?>
+                                    <?php echo "<br>" . "<strong>Name:</strong> " . $product[$i]["name"]; ?>
 
                                 </h5>
                                 <p class="card-text">
-                                    Release date:
+                                <strong>Release date:</strong>
                                     <?php echo $product[$i]["releaseDate"]; ?> <br>
-                                    Price:
-                                    <?php echo $product[$i]["price"]; ?> <br>
-                                    Description:
+                                    <strong>Price:</strong>
+                                    <?php echo $product[$i]["price"] . "%"; ?> <br>
+                                    <strong>Description:</strong>
                                     <?php echo $product[$i]["description"]; ?> <br>
-                                    Stock:
+                                    <strong>Stock:</strong>
                                     <?php echo $product[$i]["stock"]; ?> <br>
-                                    Product type:
+                                    <strong>Product type:</strong>
                                     <?php
                                     $rol = 'select productType from productType where productTypeId=' . $product[$i]["productTypeId"];
                                     $consultaRol = $connection->prepare($rol);

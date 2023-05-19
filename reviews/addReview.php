@@ -74,7 +74,7 @@ if (isset($success)) {
     <div>
         <div style="width:100%; display:flex;justify-content:center">
             <span
-                style="font-family:'Roboto', 'sans-serif'; width:50%;padding: 5px ; background-color: red; border-radius:30px; color:white; text-align:center">
+                class="successMsg">
                 <?= $success ?>
             </span>
         </div>
@@ -123,7 +123,7 @@ if (isset($error)) {
         </select><br /><br />
         <div><label for="review">Review</label><br><br><textarea name="review" rows="4" cols="60" id="message"
                 oninput="updateCounter()" onkeyup="limitWriting(event)"></textarea>
-            <span id="counter">250</span> caracteres restantes
+            <span id="counter">250</span> available chars
         </div>
         <div>
             <label for="rating">rating</label>

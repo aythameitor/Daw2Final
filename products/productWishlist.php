@@ -48,7 +48,7 @@ if (isset($success)) {
     <div>
         <div style="width:100%; display:flex;justify-content:center">
             <span
-                style="font-family:'Roboto', 'sans-serif'; width:50%;padding: 5px ; background-color: red; border-radius:30px; color:white; text-align:center">
+                class="successMsg">
                 <?= $success ?>
             </span>
         </div>

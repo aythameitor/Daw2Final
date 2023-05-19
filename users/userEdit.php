@@ -69,70 +69,78 @@ try {
                 if ($username == "" || $telephone == "" || $formEmail == "" || $birthDate == "" || $password == "" || $passwordHash == "") {
                     $error = "Some required fields are empty";
                 } else {
-                    if ($emailCheck->rowCount() == 0 || $email == $accountEmail->fetchColumn()) {
-                        if ($usernameCheck->rowCount() == 0 || $username == $accountUsername->fetchColumn()) {
-                            if (!empty($_FILES['profilePic']['name'])) {
-                                if ($_FILES['profilePic']['size'] <= 2097152) {
-                                    if (strpos($tipo_archivo, 'image') !== false) {
-                                        if ($_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
+                    if (validatePhone($telephone) == true) {
+                        if (validateDate($birthDate) == true) {
+                            if ($emailCheck->rowCount() == 0 || $email == $accountEmail->fetchColumn()) {
+                                if ($usernameCheck->rowCount() == 0 || $username == $accountUsername->fetchColumn()) {
+                                    if (!empty($_FILES['profilePic']['name'])) {
+                                        if ($_FILES['profilePic']['size'] <= 2097152) {
+                                            if (strpos($tipo_archivo, 'image') !== false) {
+                                                if ($_FILES['profilePic']['error'] === UPLOAD_ERR_OK) {
 
-                                            $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
-                                            $query = $connection->prepare($sql);
-                                            $query->bindParam(":email", $formEmail, PDO::PARAM_STR);
-                                            $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
-                                            $query->bindParam(":username", $username, PDO::PARAM_STR);
-                                            $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
-                                            $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
-                                            $query->bindParam(":userId", $userId);
-                                            $query->execute();
-                                            $_SESSION["email"] = $formEmail;
-                                            if ($filePath != $_SERVER['DOCUMENT_ROOT'] . "/images/profilePics/default.jpg") {
-                                                unlink($filePath);
-                                            }
+                                                    $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
+                                                    $query = $connection->prepare($sql);
+                                                    $query->bindParam(":email", $formEmail, PDO::PARAM_STR);
+                                                    $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
+                                                    $query->bindParam(":username", $username, PDO::PARAM_STR);
+                                                    $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
+                                                    $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
+                                                    $query->bindParam(":userId", $userId);
+                                                    $query->execute();
+                                                    $_SESSION["email"] = $formEmail;
+                                                    if ($filePath != $_SERVER['DOCUMENT_ROOT'] . "/images/profilePics/default.jpg") {
+                                                        unlink($filePath);
+                                                    }
 
-                                            $newUserId = select("userId", $formEmail, $connection)->fetchColumn();
-                                            $ruta_destino = '../images/profilePics/' . $newUserId . "." . $extension;
-                                            $ruta_BBDD = '/images/profilePics/' . $newUserId . "." . $extension;
+                                                    $newUserId = select("userId", $formEmail, $connection)->fetchColumn();
+                                                    $ruta_destino = '../images/profilePics/' . $newUserId . "." . $extension;
+                                                    $ruta_BBDD = '/images/profilePics/' . $newUserId . "." . $extension;
 
-                                            if (move_uploaded_file($tempRoute, $ruta_destino)) {
-                                                $sqlRouteUpdatePic = "update user set profilePic = :profilePic where userId = :userId";
-                                                $queryRouteUpdatePic = $connection->prepare($sqlRouteUpdatePic);
-                                                $queryRouteUpdatePic->bindParam(":profilePic", $ruta_BBDD, PDO::PARAM_STR);
-                                                $queryRouteUpdatePic->bindParam(":userId", $newUserId);
-                                                $queryRouteUpdatePic->execute();
-                                                $success = "User updated successfully";
+                                                    if (move_uploaded_file($tempRoute, $ruta_destino)) {
+                                                        $sqlRouteUpdatePic = "update user set profilePic = :profilePic where userId = :userId";
+                                                        $queryRouteUpdatePic = $connection->prepare($sqlRouteUpdatePic);
+                                                        $queryRouteUpdatePic->bindParam(":profilePic", $ruta_BBDD, PDO::PARAM_STR);
+                                                        $queryRouteUpdatePic->bindParam(":userId", $newUserId);
+                                                        $queryRouteUpdatePic->execute();
+                                                        $success = "User updated successfully";
 
+                                                    } else {
+                                                        $error = "There was an error moving the picture";
+                                                    }
+
+                                                }
                                             } else {
-                                                $error = "There was an error moving the picture";
+                                                $error = 'File is not valid';
                                             }
-
+                                        } else {
+                                            $error = 'File is bigger than 2MB';
                                         }
                                     } else {
-                                        $error = 'File is not valid';
+                                        //no profile pic
+                                        $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
+                                        $query = $connection->prepare($sql);
+                                        $query->bindParam(":email", $email, PDO::PARAM_STR);
+                                        $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
+                                        $query->bindParam(":username", $username, PDO::PARAM_STR);
+                                        $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
+                                        $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
+                                        $query->bindParam(":userId", $userId);
+                                        $query->execute();
+                                        $_SESSION["email"] = $formEmail;
+                                        $success = "User updated successfully";
                                     }
+
                                 } else {
-                                    $error = 'File is bigger than 2MB';
+                                    $error = "Username is already taken";
                                 }
                             } else {
-                                //no profile pic
-                                $sql = "UPDATE user set email = :email, password = :password, username = :username, telephone = :telephone, dateOfBirth= :birthDate WHERE userId = :userId";
-                                $query = $connection->prepare($sql);
-                                $query->bindParam(":email", $email, PDO::PARAM_STR);
-                                $query->bindParam(":password", $passwordHash, PDO::PARAM_STR);
-                                $query->bindParam(":username", $username, PDO::PARAM_STR);
-                                $query->bindParam(":telephone", $telephone, PDO::PARAM_INT);
-                                $query->bindParam(":birthDate", $birthDate, PDO::PARAM_STR);
-                                $query->bindParam(":userId", $userId);
-                                $query->execute();
-                                $_SESSION["email"] = $formEmail;
-                                $success = "User updated successfully";
+                                $error = "Email is already taken";
                             }
-
                         } else {
-                            $error = "Username is already taken";
+                            $error = "Birth date is invalid";
                         }
                     } else {
-                        $error = "Email is already taken";
+                        $error = "Phone number is not valid";
                     }
                 }
             }
@@ -152,8 +160,7 @@ if (isset($success)) {
     ?>
     <div>
         <div style="width:100%; display:flex;justify-content:center">
-            <span
-                style="font-family:'Roboto', 'sans-serif'; width:50%;padding: 5px ; background-color: red; border-radius:30px; color:white; text-align:center">
+            <span class="successMsg">
                 <?= $success ?>
             </span>
         </div>
@@ -241,7 +248,8 @@ if (isset($error)) {
                 <?php
             } else {
                 ?>
-                <div>Ha ocurrido un error.</div>
+                <div>There was an error.</div>
+                <img src="/images/not-found/nothing-found.png" alt="nothing found">
                 <?php
             }
             ?>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Se encarga de mostrar todos los user, comprueba tu rol y te permite, en caso de ser superadministrador, borrar user
+ * Shows all users only if you are admin or superadmin, if you are superadmin allows deletion
  * @author Aythami Miguel Cabrera Mayor
  * @category File
  * @throws PDOException
@@ -24,9 +24,7 @@ try {
     }
     ;
 
-    //Se comprueba el id de la sesión y si se recibe un get de delete, en ese caso
-    //se comprueba el id del usuario a delete para evitar delete superadmins
-    //en caso de no ser superadmin se elimina
+    //checks session role for deletion
     if (isset($_GET["delete"]) && $_SESSION["roleId"] == 3) {
         $idDelete = strip_tags(trim($_GET["delete"]));
         $comprobar = "SELECT roleId from user where userId = :userId";
@@ -34,7 +32,7 @@ try {
         $consultaCompr->bindParam(":userId", $idDelete);
         $consultaCompr->execute();
         $userRoleId = $consultaCompr->fetchColumn();
-        //
+        
         $picName = "SELECT profilePic from user where userId = :userId";
         $queryPic = $connection->prepare($picName);
         $queryPic->bindParam(":userId", $idDelete);
@@ -65,7 +63,7 @@ try {
         }
 
     }
-    //Se seleccionan los user para cargar la lista con el usuario ya borrado
+    //Selects all users for the list
     $AllUsersQuery = 'select * from user';
     $sentencia = $connection->prepare($AllUsersQuery);
     $sentencia->execute();
@@ -84,7 +82,7 @@ if (isset($success)) {
     <div>
         <div style="width:100%; display:flex;justify-content:center">
             <span
-                style="font-family:'Roboto', 'sans-serif'; width:50%;padding: 5px ; background-color: red; border-radius:30px; color:white; text-align:center">
+                class="successMsg">
                 <?= $success ?>
             </span>
         </div>
@@ -161,9 +159,9 @@ if (isset($error)) {
                                     <td>
                                         <?php
                                         $rol = 'select roleName from role where roleId=' . $row["roleId"];
-                                        $consultaRol = $connection->prepare($rol);
-                                        $consultaRol->execute();
-                                        $nombreRol = $consultaRol->fetchColumn();
+                                        $roleQuery = $connection->prepare($rol);
+                                        $roleQuery->execute();
+                                        $nombreRol = $roleQuery->fetchColumn();
                                         echo $nombreRol;
                                         ?>
                                     </td>

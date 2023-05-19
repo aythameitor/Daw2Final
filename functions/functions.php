@@ -34,3 +34,29 @@ function connection(){
     $connection = new PDO($dsn, $config['db']['user'], $config['db']['pass'], $config['db']['options']);
     return $connection;
 }
+
+function validatePhone($telephone) {
+    $telephone = str_replace(' ', '', $telephone);
+    $telephone = str_replace('-', '', $telephone);
+
+    if (strlen($telephone) !== 10) {
+        return false;
+    }
+
+    if (!ctype_digit($telephone)) {
+        return false;
+    }
+
+    return true;
+}
+function validateDate($date){
+    $curDate = date('Y-m-d');
+
+    // Comparar la fecha ingresada con la fecha actual
+    if ($date > $curDate) {
+        return false;
+    }
+
+    // La fecha es válida
+    return true;
+}
